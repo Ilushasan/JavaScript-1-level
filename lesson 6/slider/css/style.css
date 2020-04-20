@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    background-color: #e0e0e0;
+}
+
+.slider {
+    margin: 100px auto;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10%;
+    -webkit-box-shadow: 1px 26px 29px -8px rgba(71,71,71,1);
+    -moz-box-shadow: 1px 26px 29px -8px rgba(71,71,71,1);
+    box-shadow: 1px 26px 29px -8px rgba(71,71,71,1);
+}
+
+.slider__item {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.hidden-slide {
+    visibility: hidden;
+}
+
+.fas.fa-spinner.fa-spin {
+    font-size: 50px;
+    color: #bbbbbb;
+    position: absolute;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+}
+
+.slider__item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+.slider-leftArrow, .slider-rightArrow {
+    position: absolute;
+    top: 47%;
+    z-index: 3;
+    color: #bbbbbb;
+    cursor: pointer;
+    font-size: 50px;
+    opacity: .55;
+}
+
+.slider-leftArrow:hover, 
+.slider-rightArrow:hover {
+    opacity: 0.75;
+}
+
+.slider-leftArrow {
+    left: 5%;
+}
+
+.slider-rightArrow {
+    right: 5%;
+}
+
+/*Animation*/
+
+.slider-leftToRightAnimation {
+    animation-name: leftToRight;
+    animation-iteration-count: 1;
+    animation-duration: 0.5s;
+    position: relative;
+}
+
+@keyframes leftToRight {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+.slider-rightToLeftAnimation {
+    animation-name: rightToLeft;
+    animation-iteration-count: 1;
+    animation-duration: 0.5s;
+    position: relative;
+}
+
+@keyframes rightToLeft {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
