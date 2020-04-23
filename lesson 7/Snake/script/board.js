@@ -57,6 +57,7 @@ class Board {
         return this.boardEl.querySelector(`tr:nth-child(${y}) td:nth-child(${x})`);
     }
     //Проверяет является ли слудующая ячейка стеной
+    //Метод устарел, змейка проходит через стены
     isNextStepToWall(nextCellCoords) {
         let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
         return nextCell === null;

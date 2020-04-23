@@ -4,16 +4,18 @@ class Game {
         this.messageEl = document.getElementById('message');
     }
     //Метод получаеь другие игровые объекты
-    init(settings, status, board, snake, menu, food) {
+    init(settings, status, board, snake, menu, food, score) {
         this.settings = settings;
         this.status = status;
         this.board = board;
         this.snake = snake;
         this.menu = menu;
         this.food = food;
+        this.score = score;
     }
     //Метод назначает обработчика на события клика на кнопке старт
     run() {
+        this.score.setToWin(this.settings.winLength);
         this.menu.addButtonsClickListeners(this.start.bind(this), this.pause.bind(this));
         document.addEventListener('keydown', this.pressKeyHandler.bind(this));
     }
@@ -38,7 +40,8 @@ class Game {
     //заново отрисовывает положение змейки и еду
     doTick() {
         this.snake.performStep();
-        if (this.isGameLost()) {
+        this.score.setCurrent(this.snake.body.length);
+        if (this.isSnakeSreppendOntoItself()){
             return;
         }
         if (this.isGameWon()) {
@@ -63,7 +66,20 @@ class Game {
         }
         return false;
     }
+    //Метод сравнивает съела ли змейка сама себя
+    isSnakeSreppendOntoItself() {
+        let cellArr = this.snake.body.map(function (cellCoords) {
+            return cellCoords.x.toString() + cellCoords.y.toString();
+        });
+        let head = cellArr.shift();
+        if (cellArr.includes(head)) {
+            clearInterval(this.tickIdentifier);
+            this.setMessage('Вы проиграли');
+            return true;
+        }
+    }
     //Метод проверяет проиграна ли игра и останавливает ее
+    //Метод больше не используется, змейка может проходить через стенку
     isGameLost() {
         if (this.board.isNextStepToWall(this.snake.body[0])) {
             clearInterval(this.tickIdentifier);
